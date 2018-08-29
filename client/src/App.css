@@ -1,7 +1,16 @@
 .App-header {
-    background-color: rgb(18, 7, 65);
+    background-color: rgba(18, 7, 65, 0.856);
     color: white;
     border-width: 5px;
     border-color: black;
     padding: 20px;
+}
+
+.jumbotron {
+    background-color: rgba(255, 255, 255, 0.829);
+}
+
+.wrapper {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.596), rgba(0, 0, 0, 0.63)), url(../src/images/nyt_background.jpg);
+    padding-bottom: 30px;
 }

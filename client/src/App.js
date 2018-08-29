@@ -120,7 +120,7 @@ buildQueryURL = () => {
     console.log(this.state.articleResults);
 
     return (
-      <div>
+      <div className="wrapper">
         <Titlebar />
         <Search handleSubmit={this.handleSubmit} handleChange={this.handleChange} topic={this.state.topic} startYear={this.state.startYear} endYear={this.state.endYear}/>
         <Results articleResults={this.state.articleResults} saveArticle={this.saveArticle}/>
