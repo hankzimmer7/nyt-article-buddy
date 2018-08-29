@@ -11,6 +11,6 @@
 }
 
 .wrapper {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.596), rgba(0, 0, 0, 0.63)), url(../src/images/nyt_background.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../src/images/nyt_background.jpg);
     padding-bottom: 30px;
 }

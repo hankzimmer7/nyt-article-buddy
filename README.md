@@ -1,6 +1,6 @@
-# New York Times Article Search & Save
+# New York Times Article Buddy
 
-* Deployed at https://nyt-search-and-save.herokuapp.com/
+* Deployed at https://nyt-article-buddy.herokuapp.com/
 
 ## Description
 
