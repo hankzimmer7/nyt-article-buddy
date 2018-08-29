@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Titlebar from './components/Titlebar';
 import Search from './components/Search';
 import Results from './components/Results';
@@ -9,11 +10,26 @@ class App extends Component {
 
   state = {
     articleResults: [],
+    savedArticles: [],
     topic: "",
     startYear: "",
     endYear: "",
     isLoaded: false
+  };
+
+componentDidMount() {
+  this.loadSavedArticles();
 };
+
+//Query the mongoDB for the saved articles
+loadSavedArticles = () => {
+  console.log("loading saved articles");
+  axios.get("/api/articles")
+      .then(res =>
+      this.setState({ savedArticles: res.data})
+  )
+  .catch(err => console.log(err));
+}
 
 //Update the search parameters as the user types
 handleChange = event => {
@@ -26,12 +42,15 @@ handleChange = event => {
 //When the user clicks the "Search" button
 handleSubmit = event => {
   event.preventDefault();
-  console.log("Searching for: ")
-  console.log(`title: ${this.state.topic} start year: ${this.state.startYear} end year: ${this.state.endYear}`)
   this.searchArticles();
+  this.setState({
+    topic: '',
+    startYear: '',
+    endYear: ''
+  })
 };
 
-//Searching the new york times api for the search parameters and updates the state
+//Search the new york times api for the search parameters and updates the state
 searchArticles = () => {
   const queryURL = this.buildQueryURL()
   console.log(`Searching articles. Query url: ${queryURL}`);
@@ -46,9 +65,6 @@ searchArticles = () => {
           articleResults: result.response.docs
         });
       },
-      // Note: it's important to handle errors here
-      // instead of a catch() block so that we don't swallow
-      // exceptions from actual bugs in components.
       (error) => {
         this.setState({
           isLoaded: true,
@@ -58,19 +74,6 @@ searchArticles = () => {
     )
 }
 
-saveArticle = articleId => {
-  console.log("Saving article " + articleId);
-}
-
-updatePage = () => {
-  console.log("update the page");
-}
-
-componentDidMount() {
-
-}
-
-
 buildQueryURL = () => {
 
   const {topic, startYear, endYear} = this.state;
@@ -79,40 +82,36 @@ buildQueryURL = () => {
     
     const apiKey = 'b9f91d369ff59547cd47b931d8cbc56b:0:74623931';
 
-
     queryURL += "&api-key=" + apiKey;
-
     queryURL += "&q=" + topic;
   
+    // If the user provides a startYear, include it in the query  
+    if (startYear) {
+      queryURL += "&begin_date=" + startYear + "0101";
+    }
   
-    // Grab text the user typed into the search input, add to the queryParams object
-    // queryParams.q = topic
-    //   .trim();
-  
-    // If the user provides a startYear, include it in the queryParams object
-    // var startYear = this.state.startYear
-    //   .val()
-    //   .trim();
-  
-    // if (parseInt(startYear)) {
-    //   queryParams.begin_date = startYear + "0101";
-    // }
-  
-    // // If the user provides an endYear, include it in the queryParams object
-    // var endYear = this.state.endYear
-    //   .val()
-    //   .trim();
-  
-    // if (parseInt(endYear)) {
-    //   queryParams.end_date = endYear + "0101";
-    // }
+    // If the user provides an endYear, include it in the query
+    if (endYear) {
+      queryURL += "&end_date" + endYear + "1230";
+    }
   
     // Logging the URL so we have access to it for troubleshooting
     console.log("---------------\nURL: " + queryURL + "\n---------------");
     // console.log(queryURL + (queryParams));
     return queryURL;
-    // return queryURL + (queryParams);
-  }
+}
+
+saveArticle = articleId => {
+  console.log("Saving article " + articleId);
+  axios.post("/api/articles")
+    .then(res => {
+      console.log("Saved article " + articleId + " Axios post response:")
+      console.los(res);
+      this.loadSavedArticles();
+    }
+  )
+  .catch(err => console.log(err));
+}
 
   render() {
 
@@ -124,7 +123,7 @@ buildQueryURL = () => {
         <Titlebar />
         <Search handleSubmit={this.handleSubmit} handleChange={this.handleChange} topic={this.state.topic} startYear={this.state.startYear} endYear={this.state.endYear}/>
         <Results articleResults={this.state.articleResults} saveArticle={this.saveArticle}/>
-        <SavedArticles />
+        <SavedArticles savedArticles={this.state.savedArticles}/>
       </div>   
     );
   }

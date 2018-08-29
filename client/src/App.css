@@ -1,5 +1,5 @@
 .App-header {
-    background-color: rgba(18, 7, 65, 0.856);
+    background-color: rgba(20, 0, 70, 0.8);
     color: white;
     border-width: 5px;
     border-color: black;
@@ -7,7 +7,7 @@
 }
 
 .jumbotron {
-    background-color: rgba(255, 255, 255, 0.829);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .wrapper {
