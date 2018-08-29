@@ -18,7 +18,7 @@ const SavedArticles = props => (
                     {article.title}
                     </a>
                   </h3>
-                  <p className="card-text">{article.date}</p>
+                  <p className="card-text">{article.date && article.date.slice(0,4)}</p>
                   <button className="btn btn-primary" onClick={() => { props.unsaveArticle(article._id) }}>
                   UnSave
                   </button>

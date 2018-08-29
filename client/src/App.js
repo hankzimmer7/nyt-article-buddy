@@ -23,7 +23,6 @@ class App extends Component {
 
   //Query the mongoDB for the saved articles
   loadSavedArticles = () => {
-    console.log("loading saved articles");
     axios.get("/api/articles")
         .then(res =>
         this.setState({ savedArticles: res.data})
@@ -74,6 +73,7 @@ class App extends Component {
       )
   }
 
+  //Construct the query url from the entered parameters
   buildQueryURL = () => {
 
     const {topic, startYear, endYear} = this.state;
@@ -88,21 +88,18 @@ class App extends Component {
       // If the user provides a startYear, include it in the query  
       if (startYear) {
         queryURL += "&begin_date=" + startYear + "0101";
-      }
+      };
     
       // If the user provides an endYear, include it in the query
       if (endYear) {
-        queryURL += "&end_date" + endYear + "1230";
-      }
-    
-      // Logging the URL so we have access to it for troubleshooting
-      console.log("---------------\nURL: " + queryURL + "\n---------------");
-      // console.log(queryURL + (queryParams));
+        queryURL += "&end_date=" + endYear + "1230";
+      };    
+
       return queryURL;
   }
 
+  //Add an article to mongoDB when the user clicks the save button
   saveArticle = articleId => {
-
     //Find the desired article within the article results array based on its id
     const article = this.state.articleResults.filter(article => article._id === articleId)
 
@@ -121,10 +118,6 @@ class App extends Component {
 
   //Delete an article from the mongoDB when the user clicks the unsave button
   unsaveArticle = articleId => {
-
-    console.log("Removing article " + articleId);
-
-
     axios.delete("/api/articles/" + articleId)
       .then(res => {
         this.loadSavedArticles();
@@ -134,7 +127,6 @@ class App extends Component {
   }
 
   render() {
-
     return (
       <div className="wrapper">
         <Titlebar />

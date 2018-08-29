@@ -4,7 +4,7 @@
 
 ## Description
 
-* Search for articles in the New York TImes based on topic and year.
+* Search for articles in the New York Times based on topic and year.
 
 * Save articles of interest
 
