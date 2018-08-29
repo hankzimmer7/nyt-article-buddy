@@ -7,17 +7,10 @@ router.route("/")
   .post(articlesController.create);
 
 // Matches with "/api/restaurants/:id"
-// router
-//   .route("/:id")
-//   .get(articlesController.findById)
-//   .put(articlesController.update)
-//   .delete(articlesController.remove);
-
 router
-  .route("/test")
-  .get(function (req, res) {
-    console.log("hit the test path");
-    res.json("testing123");
-  })
+  .route("/:id")
+  .get(articlesController.findById)
+  .put(articlesController.update)
+  .delete(articlesController.remove);
 
 module.exports = router;

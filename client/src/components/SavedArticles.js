@@ -12,7 +12,6 @@ class SavedArticles extends Component {
     };
 
     loadSavedArticles = () => {
-        console.log("Loading saved articles");
         axios.get("/api/articles")
             .then(res =>
             this.setState({ articles: res.data})
@@ -21,6 +20,7 @@ class SavedArticles extends Component {
     }
 
     render() {
+
         return (
             <div className="container">
                 <div className="jumbotron">
