@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const routes = require("./routes");
 const app = express();
 const morgan = require('morgan');
+const dbConnection = require('./database');
 const PORT = process.env.PORT || 3001;
 
 // Define middleware here
