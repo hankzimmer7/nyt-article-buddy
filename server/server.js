@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const routes = require("./routes");
 const app = express();
 const morgan = require('morgan');
 const PORT = process.env.PORT || 3001;
@@ -9,7 +10,8 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get("/", function (req, res) {res.send("test")});
+// Add routes, both API and view
+app.use(routes);
 
 // Serve up static assets in production
 if (process.env.NODE_ENV === "production") {
