@@ -18,7 +18,7 @@ const Results = props => (
                       {article.headline.main}
                     </a>
                   </h3>
-                  <p className="card-text">{article.pub_date && article.pub_date.slice(0,4)}</p>
+                  <p className="card-text">{article.pub_date && "Published in " + article.pub_date.slice(0,4)}</p>
                   <button className="btn btn-primary" onClick={() => { props.saveArticle(article._id) }}>
                   Save
                   </button>
