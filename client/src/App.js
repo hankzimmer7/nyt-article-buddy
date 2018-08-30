@@ -52,13 +52,10 @@ class App extends Component {
   //Search the new york times api for the search parameters
   searchArticles = () => {
     const queryURL = this.buildQueryURL()
-    console.log(`Searching articles. Query url: ${queryURL}`);
     fetch(queryURL)
       .then(res => res.json())
       .then(
         (result) => {
-          console.log("result:");
-          console.log(result);
           this.setState({
             isLoaded: true,
             articleResults: result.response.docs
